@@ -1,0 +1,50 @@
+.calculator {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    max-width: 300px;
+    margin: 1rem auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.calculator-display {
+    width: 100%;
+    height: 2rem;
+    font-size: 1.2rem;
+    text-align: right;
+    margin-bottom: 0.5rem;
+    padding: 0.25rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--bg-color);
+    color: var(--text-color);
+}
+
+.calculator-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+}
+
+.calculator-buttons button {
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--primary-color);
+    color: #fff;
+    cursor: pointer;
+    transition: background 250ms;
+}
+
+.calculator-buttons button:hover {
+    background: var(--primary-hover);
+}
+
+/* Optionally, style the clear button differently */
+.calculator-clear {
+    grid-column: span 4;
+    background: var(--accent-color);
+    color: var(--text-color);
+}

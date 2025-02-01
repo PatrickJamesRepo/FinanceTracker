@@ -1,0 +1,334 @@
+/* App.css */
+
+/* Default (Dark) Theme */
+:root {
+  --primary-color: #007bff;
+  --primary-hover: #0056b3;
+  --secondary-color: #d4a017;
+  --accent-color: #c0c0c0;
+  --bg-color: #1e1e1e;       /* Overall background */
+  --card-bg: #2e2e2e;        /* Card / panel background */
+  --border-color: #444;
+  --text-color: #dcdcdc;
+  --muted-text: #ccc;
+  --spacing: 1rem;
+  --font-family: 'Poppins', sans-serif;
+}
+
+/* Light Theme Overrides */
+body.light {
+  --primary-color: #007bff;
+  --primary-hover: #0056b3;
+  --secondary-color: #d4a017;
+  --accent-color: #c0c0c0;
+  --bg-color: #ffffff;
+  --card-bg: #f9f9f9;
+  --border-color: #ddd;
+  --text-color: #333;
+  --muted-text: #666;
+}
+
+/* Global Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* Layout Container */
+.app-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 240px;
+  background-color: var(--card-bg);
+  padding: 2rem 1rem;
+  border-right: 1px solid var(--border-color);
+}
+
+.sidebar-title {
+  color: var(--secondary-color);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing);
+}
+
+.sidebar-nav button {
+  background: #333;
+  border: 1px solid #555;
+  padding: 0.75rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--text-color);
+  transition: background 250ms, border-color 250ms, transform 150ms;
+  text-align: left;
+}
+
+/* Adjust button colors for light theme */
+body.light .sidebar-nav button {
+  background: #ddd;
+  border: 1px solid #ccc;
+  color: var(--text-color);
+}
+
+.sidebar-nav button:hover,
+.sidebar-nav button.active {
+  background: #555;
+  border-color: #777;
+  transform: translateX(4px);
+}
+
+/* Responsive Sidebar */
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .sidebar-nav {
+    flex-direction: row;
+    gap: 0.5rem;
+  }
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.header h1 {
+  color: var(--secondary-color);
+  font-size: 2.5rem;
+}
+
+.content {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: calc(var(--spacing) * 1.5);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 250ms ease-in-out;
+  flex: 1;
+}
+
+.content:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Form Groups */
+.form-group {
+  margin-bottom: var(--spacing);
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: var(--muted-text);
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--bg-color);
+  color: var(--text-color);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Submit Button */
+.submit-btn {
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 250ms, transform 150ms;
+}
+
+.submit-btn:hover {
+  background-color: var(--primary-hover);
+  transform: scale(1.05);
+}
+
+/* List Styling */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border-color);
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Accent Text */
+.text-mustard {
+  color: var(--secondary-color);
+}
+
+.text-silver {
+  color: var(--accent-color);
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: var(--spacing);
+  font-weight: bold;
+}
+
+/* Icon Button Styling */
+.icon-btn {
+  /* No background or border by default so that it inherits theme colors */
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  color: var(--text-color);
+  padding: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background 250ms, border-color 250ms, transform 150ms;
+}
+
+.icon-btn:hover,
+.icon-btn:focus {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+  transform: translateX(4px);
+}
+
+/* In light mode, if you need a specific override (optional since CSS variables update automatically) */
+body.light .icon-btn {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+}
+
+/* src/components/CalendarComponent.css */
+.calendar-container {
+  padding: 1rem;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  max-width: 350px;
+  margin: 1rem auto;
+  text-align: center;
+}
+
+.calendar-container h2 {
+  color: var(--secondary-color);
+  margin-bottom: 1rem;
+}
+
+.selected-date {
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.notes-container {
+  padding: 1rem;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  max-width: 400px;
+  margin: 1rem auto;
+}
+
+.notes-container h2 {
+  color: var(--secondary-color);
+  margin-bottom: 1rem;
+}
+
+.notes-input {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.notes-input input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--bg-color);
+  color: var(--text-color);
+}
+
+.notes-input button {
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-color);
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  transition: background 250ms;
+}
+
+.notes-input button:hover {
+  background-color: var(--primary-hover);
+}
+
+.notes-container ul {
+  list-style: none;
+  padding: 0;
+}
+
+.notes-container li {
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
