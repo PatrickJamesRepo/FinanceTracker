@@ -1,21 +1,24 @@
+// src/App.tsx
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Transactions from './components/Transactions';
 import Budget from './components/Budget';
 import Investments from './components/Investments';
 import Calculator from './components/Calculator';
-import Calendar from './components/Calendar.tsx';
+import CalendarComponent from './components/Calendar';
 import Notes from './components/Notes';
 import { FaSun, FaMoon, FaCalculator, FaCalendarAlt, FaStickyNote } from 'react-icons/fa';
 
 type ActiveTab = 'transactions' | 'budget' | 'investments' | 'calendar' | 'notes';
 
 const App: React.FC = () => {
+    // Manage active tab and theme
     const [activeTab, setActiveTab] = useState<ActiveTab>('transactions');
     const [theme, setTheme] = useState<'dark' | 'light'>('dark');
     const [showCalculator, setShowCalculator] = useState<boolean>(false);
+    // Lift the selectedDate state so both Calendar and Notes share the same date
+    const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
-    // Update the <body> class based on the theme
     useEffect(() => {
         document.body.className = theme;
     }, [theme]);
@@ -31,7 +34,6 @@ const App: React.FC = () => {
     return (
         <div className="app-container">
             <aside className="sidebar">
-                {/* Theme Toggle at the Top */}
                 <div className="theme-toggle" style={{ textAlign: 'center', marginBottom: '1rem' }}>
                     <button className="icon-btn" onClick={toggleTheme}>
                         {theme === 'dark' ? <FaSun size={24} /> : <FaMoon size={24} />}
@@ -40,47 +42,29 @@ const App: React.FC = () => {
 
                 <h2 className="sidebar-title">Menu</h2>
                 <nav className="sidebar-nav">
-                    <button
-                        className={activeTab === 'transactions' ? 'active' : ''}
-                        onClick={() => setActiveTab('transactions')}
-                    >
+                    <button className={activeTab === 'transactions' ? 'active' : ''} onClick={() => setActiveTab('transactions')}>
                         Transactions
                     </button>
-                    <button
-                        className={activeTab === 'budget' ? 'active' : ''}
-                        onClick={() => setActiveTab('budget')}
-                    >
+                    <button className={activeTab === 'budget' ? 'active' : ''} onClick={() => setActiveTab('budget')}>
                         Budget
                     </button>
-                    <button
-                        className={activeTab === 'investments' ? 'active' : ''}
-                        onClick={() => setActiveTab('investments')}
-                    >
+                    <button className={activeTab === 'investments' ? 'active' : ''} onClick={() => setActiveTab('investments')}>
                         Investments
                     </button>
-                    <button
-                        className={activeTab === 'calendar' ? 'active' : ''}
-                        onClick={() => setActiveTab('calendar')}
-                    >
-                        <FaCalendarAlt size={16} style={{ marginRight: '0.5rem' }} />
-                        Calendar
+                    <button className={activeTab === 'calendar' ? 'active' : ''} onClick={() => setActiveTab('calendar')}>
+                        <FaCalendarAlt size={16} style={{ marginRight: '0.5rem' }} /> Calendar
                     </button>
-                    <button
-                        className={activeTab === 'notes' ? 'active' : ''}
-                        onClick={() => setActiveTab('notes')}
-                    >
-                        <FaStickyNote size={16} style={{ marginRight: '0.5rem' }} />
-                        Notes
+                    <button className={activeTab === 'notes' ? 'active' : ''} onClick={() => setActiveTab('notes')}>
+                        <FaStickyNote size={16} style={{ marginRight: '0.5rem' }} /> Notes
                     </button>
                 </nav>
 
-                {/* Calculator Toggle */}
                 <div style={{ marginTop: '2rem', textAlign: 'center' }}>
                     <button className="icon-btn" onClick={toggleCalculator}>
                         <FaCalculator size={24} />
                         <span style={{ marginLeft: '0.5rem' }}>
-              {showCalculator ? 'Hide Calculator' : 'Show Calculator'}
-            </span>
+                            {showCalculator ? 'Hide Calculator' : 'Show Calculator'}
+                        </span>
                     </button>
                 </div>
             </aside>
@@ -93,8 +77,13 @@ const App: React.FC = () => {
                     {activeTab === 'transactions' && <Transactions />}
                     {activeTab === 'budget' && <Budget />}
                     {activeTab === 'investments' && <Investments />}
-                    {activeTab === 'calendar' && <Calendar />}
-                    {activeTab === 'notes' && <Notes />}
+                    {activeTab === 'calendar' && (
+                        <CalendarComponent
+                            selectedDate={selectedDate}
+                            onDateChange={setSelectedDate}
+                        />
+                    )}
+                    {activeTab === 'notes' && <Notes selectedDate={selectedDate} />}
                 </section>
                 {showCalculator && <Calculator />}
             </main>

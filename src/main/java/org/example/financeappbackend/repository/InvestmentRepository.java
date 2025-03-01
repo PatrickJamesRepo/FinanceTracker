@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface InvestmentRepository extends JpaRepository<Investment, Long> {
-    // Additional query methods (if needed) can be defined here
+
 }

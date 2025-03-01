@@ -58,7 +58,7 @@ const Transactions: React.FC = () => {
             isRecurring: form.isRecurring,
         };
         axios
-            .post('/api/transactions', payload)
+            .post('/api/transactions/', payload)
             .then((response) => {
                 setTransactions([...transactions, response.data]);
                 setForm({

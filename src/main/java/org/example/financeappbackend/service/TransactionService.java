@@ -6,6 +6,8 @@ import org.example.financeappbackend.entity.Transaction;
 import org.example.financeappbackend.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,5 +54,9 @@ public class TransactionService {
             transactionRepository.delete(transaction);
             return true;
         }).orElse(false);
+    }
+
+    public List<Transaction> getTransactionsByDate(LocalDate date) {
+        return transactionRepository.findByDate(date);
     }
 }

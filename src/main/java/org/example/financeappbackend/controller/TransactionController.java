@@ -5,9 +5,12 @@ package org.example.financeappbackend.controller;
 import org.example.financeappbackend.entity.Transaction;
 import org.example.financeappbackend.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,10 +21,21 @@ public class TransactionController {
     @Autowired
     private TransactionService transactionService;
 
-    // Get all transactions
-    @GetMapping
-    public List<Transaction> getAllTransactions() {
-        return transactionService.getAllTransactions();
+
+    // This endpoint is called when the "date" parameter is NOT provided.
+    @GetMapping(params = "!date")
+    public ResponseEntity<List<Transaction>> getAllTransactions() {
+        List<Transaction> transactions = transactionService.getAllTransactions();
+        return ResponseEntity.ok(transactions);
+    }
+
+
+    // This endpoint is called when the "date" parameter IS provided.
+    @GetMapping(params = "date")
+    public ResponseEntity<List<Transaction>> getTransactionsByDate(
+            @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        List<Transaction> transactions = transactionService.getTransactionsByDate(date);
+        return ResponseEntity.ok(transactions);
     }
 
     // Get recurring transactions
